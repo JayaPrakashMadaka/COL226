@@ -1,0 +1,1359 @@
+2 reduce/reduce conflicts
+
+error:  state 44: reduce/reduce conflict between rule 38 and rule 29 on EOC
+error:  state 44: reduce/reduce conflict between rule 38 and rule 29 on RPAREN
+
+state 0:
+
+	START : . E 
+	START : .  (reduce by rule 1)
+
+	PROG	shift 2
+
+	E	goto 1
+	START	goto 102
+
+	.	reduce by rule 1
+
+
+state 1:
+
+	START : E .  (reduce by rule 0)
+
+
+
+	.	reduce by rule 0
+
+
+state 2:
+
+	E : PROG . ID BLK DS CS 
+
+	ID	shift 3
+
+
+	.	error
+
+
+state 3:
+
+	E : PROG ID . BLK DS CS 
+
+	BLK	shift 4
+
+
+	.	error
+
+
+state 4:
+
+	E : PROG ID BLK . DS CS 
+
+	VAR	shift 7
+
+	DS	goto 6
+	D	goto 5
+
+	.	reduce by rule 4
+
+
+state 5:
+
+	DS : D . DS 
+
+	VAR	shift 7
+
+	DS	goto 8
+	D	goto 5
+
+	.	reduce by rule 4
+
+
+state 6:
+
+	E : PROG ID BLK DS . CS 
+
+	LCPAREN	shift 10
+
+	CS	goto 9
+
+	.	error
+
+
+state 7:
+
+	D : VAR . VL TYPE INT EOC 
+	D : VAR . VL TYPE BOOL EOC 
+
+	ID	shift 12
+
+	VL	goto 11
+
+	.	error
+
+
+state 8:
+
+	DS : D DS .  (reduce by rule 3)
+
+
+
+	.	reduce by rule 3
+
+
+state 9:
+
+	E : PROG ID BLK DS CS .  (reduce by rule 2)
+
+
+
+	.	reduce by rule 2
+
+
+state 10:
+
+	CS : LCPAREN . RCPAREN 
+	CS : LCPAREN . C EOC CO RCPAREN 
+
+	ID	shift 19
+	RCPAREN	shift 18
+	IF	shift 17
+	WHILE	shift 16
+	READ	shift 15
+	WRITE	shift 14
+
+	C	goto 13
+
+	.	error
+
+
+state 11:
+
+	D : VAR VL . TYPE INT EOC 
+	D : VAR VL . TYPE BOOL EOC 
+
+	TYPE	shift 20
+
+
+	.	error
+
+
+state 12:
+
+	VL : ID . VLE 
+
+	COM	shift 22
+
+	VLE	goto 21
+
+	.	reduce by rule 9
+
+
+state 13:
+
+	CS : LCPAREN C . EOC CO RCPAREN 
+
+	EOC	shift 23
+
+
+	.	error
+
+
+state 14:
+
+	C : WRITE . IEXP 
+
+	ID	shift 33
+	NUM	shift 32
+	PLUS	shift 31
+	LPAREN	shift 30
+	NEG	shift 29
+	MINUS	shift 28
+
+	IEXP	goto 27
+	IT	goto 26
+	IFAC	goto 25
+	NUME	goto 24
+
+	.	error
+
+
+state 15:
+
+	C : READ . ID 
+
+	ID	shift 34
+
+
+	.	error
+
+
+state 16:
+
+	C : WHILE . BEXP DO CS ENDWH 
+
+	ID	shift 44
+	NUM	shift 32
+	PLUS	shift 31
+	LPAREN	shift 43
+	TT	shift 42
+	FF	shift 41
+	NEG	shift 29
+	NOT	shift 40
+	MINUS	shift 28
+
+	IEXP	goto 39
+	BEXP	goto 38
+	IT	goto 26
+	IFAC	goto 25
+	NUME	goto 24
+	BT	goto 37
+	BF	goto 36
+	COMP	goto 35
+
+	.	error
+
+
+state 17:
+
+	C : IF . BEXP THEN CS ELSE CS ENDIF 
+
+	ID	shift 44
+	NUM	shift 32
+	PLUS	shift 31
+	LPAREN	shift 43
+	TT	shift 42
+	FF	shift 41
+	NEG	shift 29
+	NOT	shift 40
+	MINUS	shift 28
+
+	IEXP	goto 39
+	BEXP	goto 45
+	IT	goto 26
+	IFAC	goto 25
+	NUME	goto 24
+	BT	goto 37
+	BF	goto 36
+	COMP	goto 35
+
+	.	error
+
+
+state 18:
+
+	CS : LCPAREN RCPAREN .  (reduce by rule 10)
+
+
+
+	.	reduce by rule 10
+
+
+state 19:
+
+	C : ID . EQ EXP 
+
+	EQ	shift 46
+
+
+	.	error
+
+
+state 20:
+
+	D : VAR VL TYPE . INT EOC 
+	D : VAR VL TYPE . BOOL EOC 
+
+	INT	shift 48
+	BOOL	shift 47
+
+
+	.	error
+
+
+state 21:
+
+	VL : ID VLE .  (reduce by rule 7)
+
+
+
+	.	reduce by rule 7
+
+
+state 22:
+
+	VLE : COM . ID VLE 
+
+	ID	shift 49
+
+
+	.	error
+
+
+state 23:
+
+	CS : LCPAREN C EOC . CO RCPAREN 
+
+	ID	shift 19
+	IF	shift 17
+	WHILE	shift 16
+	READ	shift 15
+	WRITE	shift 14
+
+	CO	goto 51
+	C	goto 50
+
+	.	reduce by rule 13
+
+
+state 24:
+
+	IFAC : NUME .  (reduce by rule 28)
+
+
+
+	.	reduce by rule 28
+
+
+state 25:
+
+	IT : IFAC .  (reduce by rule 27)
+
+
+
+	.	reduce by rule 27
+
+
+state 26:
+
+	IEXP : IT .  (reduce by rule 23)
+	IT : IT . TIMES IFAC 
+	IT : IT . DIV IFAC 
+	IT : IT . MOD IFAC 
+
+	TIMES	shift 54
+	MOD	shift 53
+	DIV	shift 52
+
+
+	.	reduce by rule 23
+
+
+state 27:
+
+	C : WRITE IEXP .  (reduce by rule 16)
+	IEXP : IEXP . PLUS IT 
+	IEXP : IEXP . MINUS IT 
+
+	PLUS	shift 56
+	MINUS	shift 55
+
+
+	.	reduce by rule 16
+
+
+state 28:
+
+	NUME : MINUS . NUM 
+
+	NUM	shift 57
+
+
+	.	error
+
+
+state 29:
+
+	IFAC : NEG . IFAC 
+
+	ID	shift 33
+	NUM	shift 32
+	PLUS	shift 31
+	LPAREN	shift 30
+	NEG	shift 29
+	MINUS	shift 28
+
+	IFAC	goto 58
+	NUME	goto 24
+
+	.	error
+
+
+state 30:
+
+	IFAC : LPAREN . IEXP RPAREN 
+
+	ID	shift 33
+	NUM	shift 32
+	PLUS	shift 31
+	LPAREN	shift 30
+	NEG	shift 29
+	MINUS	shift 28
+
+	IEXP	goto 59
+	IT	goto 26
+	IFAC	goto 25
+	NUME	goto 24
+
+	.	error
+
+
+state 31:
+
+	NUME : PLUS . NUM 
+
+	NUM	shift 60
+
+
+	.	error
+
+
+state 32:
+
+	NUME : NUM .  (reduce by rule 48)
+
+
+
+	.	reduce by rule 48
+
+
+state 33:
+
+	IFAC : ID .  (reduce by rule 29)
+
+
+
+	.	reduce by rule 29
+
+
+state 34:
+
+	C : READ ID .  (reduce by rule 15)
+
+
+
+	.	reduce by rule 15
+
+
+state 35:
+
+	BF : COMP .  (reduce by rule 39)
+
+
+
+	.	reduce by rule 39
+
+
+state 36:
+
+	BT : BF .  (reduce by rule 35)
+
+
+
+	.	reduce by rule 35
+
+
+state 37:
+
+	BEXP : BT .  (reduce by rule 33)
+	BT : BT . AND BF 
+
+	AND	shift 61
+
+
+	.	reduce by rule 33
+
+
+state 38:
+
+	C : WHILE BEXP . DO CS ENDWH 
+	BEXP : BEXP . OR BT 
+
+	DO	shift 63
+	OR	shift 62
+
+
+	.	error
+
+
+state 39:
+
+	IEXP : IEXP . PLUS IT 
+	IEXP : IEXP . MINUS IT 
+	COMP : IEXP . LT IEXP 
+	COMP : IEXP . LEQ IEXP 
+	COMP : IEXP . GT IEXP 
+	COMP : IEXP . GEQ IEXP 
+	COMP : IEXP . NEQ IEXP 
+
+	PLUS	shift 56
+	GT	shift 68
+	LT	shift 67
+	GEQ	shift 66
+	LEQ	shift 65
+	NEQ	shift 64
+	MINUS	shift 55
+
+
+	.	error
+
+
+state 40:
+
+	BF : NOT . BF 
+
+	ID	shift 44
+	NUM	shift 32
+	PLUS	shift 31
+	LPAREN	shift 43
+	TT	shift 42
+	FF	shift 41
+	NEG	shift 29
+	NOT	shift 40
+	MINUS	shift 28
+
+	IEXP	goto 39
+	IT	goto 26
+	IFAC	goto 25
+	NUME	goto 24
+	BF	goto 69
+	COMP	goto 35
+
+	.	error
+
+
+state 41:
+
+	BF : FF .  (reduce by rule 37)
+
+
+
+	.	reduce by rule 37
+
+
+state 42:
+
+	BF : TT .  (reduce by rule 36)
+
+
+
+	.	reduce by rule 36
+
+
+state 43:
+
+	IFAC : LPAREN . IEXP RPAREN 
+	BF : LPAREN . BEXP RPAREN 
+
+	ID	shift 44
+	NUM	shift 32
+	PLUS	shift 31
+	LPAREN	shift 43
+	TT	shift 42
+	FF	shift 41
+	NEG	shift 29
+	NOT	shift 40
+	MINUS	shift 28
+
+	IEXP	goto 71
+	BEXP	goto 70
+	IT	goto 26
+	IFAC	goto 25
+	NUME	goto 24
+	BT	goto 37
+	BF	goto 36
+	COMP	goto 35
+
+	.	error
+
+error:  state 44: reduce/reduce conflict between rule 38 and rule 29 on EOC
+error:  state 44: reduce/reduce conflict between rule 38 and rule 29 on RPAREN
+
+state 44:
+
+	IFAC : ID .  (reduce by rule 29)
+	BF : ID .  (reduce by rule 38)
+
+	PLUS	reduce by rule 29
+	TIMES	reduce by rule 29
+	RPAREN	reduce by rule 29
+	EOC	reduce by rule 29
+	GT	reduce by rule 29
+	LT	reduce by rule 29
+	GEQ	reduce by rule 29
+	LEQ	reduce by rule 29
+	NEQ	reduce by rule 29
+	MOD	reduce by rule 29
+	THEN	reduce by rule 38
+	DO	reduce by rule 38
+	AND	reduce by rule 38
+	OR	reduce by rule 38
+	MINUS	reduce by rule 29
+	DIV	reduce by rule 29
+
+
+	.	error
+
+
+state 45:
+
+	C : IF BEXP . THEN CS ELSE CS ENDIF 
+	BEXP : BEXP . OR BT 
+
+	THEN	shift 72
+	OR	shift 62
+
+
+	.	error
+
+
+state 46:
+
+	C : ID EQ . EXP 
+
+	ID	shift 44
+	NUM	shift 32
+	PLUS	shift 31
+	LPAREN	shift 43
+	TT	shift 42
+	FF	shift 41
+	NEG	shift 29
+	NOT	shift 40
+	MINUS	shift 28
+
+	EXP	goto 75
+	IEXP	goto 74
+	BEXP	goto 73
+	IT	goto 26
+	IFAC	goto 25
+	NUME	goto 24
+	BT	goto 37
+	BF	goto 36
+	COMP	goto 35
+
+	.	error
+
+
+state 47:
+
+	D : VAR VL TYPE BOOL . EOC 
+
+	EOC	shift 76
+
+
+	.	error
+
+
+state 48:
+
+	D : VAR VL TYPE INT . EOC 
+
+	EOC	shift 77
+
+
+	.	error
+
+
+state 49:
+
+	VLE : COM ID . VLE 
+
+	COM	shift 22
+
+	VLE	goto 78
+
+	.	reduce by rule 9
+
+
+state 50:
+
+	CO : C . EOC CO 
+
+	EOC	shift 79
+
+
+	.	error
+
+
+state 51:
+
+	CS : LCPAREN C EOC CO . RCPAREN 
+
+	RCPAREN	shift 80
+
+
+	.	error
+
+
+state 52:
+
+	IT : IT DIV . IFAC 
+
+	ID	shift 33
+	NUM	shift 32
+	PLUS	shift 31
+	LPAREN	shift 30
+	NEG	shift 29
+	MINUS	shift 28
+
+	IFAC	goto 81
+	NUME	goto 24
+
+	.	error
+
+
+state 53:
+
+	IT : IT MOD . IFAC 
+
+	ID	shift 33
+	NUM	shift 32
+	PLUS	shift 31
+	LPAREN	shift 30
+	NEG	shift 29
+	MINUS	shift 28
+
+	IFAC	goto 82
+	NUME	goto 24
+
+	.	error
+
+
+state 54:
+
+	IT : IT TIMES . IFAC 
+
+	ID	shift 33
+	NUM	shift 32
+	PLUS	shift 31
+	LPAREN	shift 30
+	NEG	shift 29
+	MINUS	shift 28
+
+	IFAC	goto 83
+	NUME	goto 24
+
+	.	error
+
+
+state 55:
+
+	IEXP : IEXP MINUS . IT 
+
+	ID	shift 33
+	NUM	shift 32
+	PLUS	shift 31
+	LPAREN	shift 30
+	NEG	shift 29
+	MINUS	shift 28
+
+	IT	goto 84
+	IFAC	goto 25
+	NUME	goto 24
+
+	.	error
+
+
+state 56:
+
+	IEXP : IEXP PLUS . IT 
+
+	ID	shift 33
+	NUM	shift 32
+	PLUS	shift 31
+	LPAREN	shift 30
+	NEG	shift 29
+	MINUS	shift 28
+
+	IT	goto 85
+	IFAC	goto 25
+	NUME	goto 24
+
+	.	error
+
+
+state 57:
+
+	NUME : MINUS NUM .  (reduce by rule 49)
+
+
+
+	.	reduce by rule 49
+
+
+state 58:
+
+	IFAC : NEG IFAC .  (reduce by rule 31)
+
+
+
+	.	reduce by rule 31
+
+
+state 59:
+
+	IEXP : IEXP . PLUS IT 
+	IEXP : IEXP . MINUS IT 
+	IFAC : LPAREN IEXP . RPAREN 
+
+	PLUS	shift 56
+	RPAREN	shift 86
+	MINUS	shift 55
+
+
+	.	error
+
+
+state 60:
+
+	NUME : PLUS NUM .  (reduce by rule 47)
+
+
+
+	.	reduce by rule 47
+
+
+state 61:
+
+	BT : BT AND . BF 
+
+	ID	shift 44
+	NUM	shift 32
+	PLUS	shift 31
+	LPAREN	shift 43
+	TT	shift 42
+	FF	shift 41
+	NEG	shift 29
+	NOT	shift 40
+	MINUS	shift 28
+
+	IEXP	goto 39
+	IT	goto 26
+	IFAC	goto 25
+	NUME	goto 24
+	BF	goto 87
+	COMP	goto 35
+
+	.	error
+
+
+state 62:
+
+	BEXP : BEXP OR . BT 
+
+	ID	shift 44
+	NUM	shift 32
+	PLUS	shift 31
+	LPAREN	shift 43
+	TT	shift 42
+	FF	shift 41
+	NEG	shift 29
+	NOT	shift 40
+	MINUS	shift 28
+
+	IEXP	goto 39
+	IT	goto 26
+	IFAC	goto 25
+	NUME	goto 24
+	BT	goto 88
+	BF	goto 36
+	COMP	goto 35
+
+	.	error
+
+
+state 63:
+
+	C : WHILE BEXP DO . CS ENDWH 
+
+	LCPAREN	shift 10
+
+	CS	goto 89
+
+	.	error
+
+
+state 64:
+
+	COMP : IEXP NEQ . IEXP 
+
+	ID	shift 33
+	NUM	shift 32
+	PLUS	shift 31
+	LPAREN	shift 30
+	NEG	shift 29
+	MINUS	shift 28
+
+	IEXP	goto 90
+	IT	goto 26
+	IFAC	goto 25
+	NUME	goto 24
+
+	.	error
+
+
+state 65:
+
+	COMP : IEXP LEQ . IEXP 
+
+	ID	shift 33
+	NUM	shift 32
+	PLUS	shift 31
+	LPAREN	shift 30
+	NEG	shift 29
+	MINUS	shift 28
+
+	IEXP	goto 91
+	IT	goto 26
+	IFAC	goto 25
+	NUME	goto 24
+
+	.	error
+
+
+state 66:
+
+	COMP : IEXP GEQ . IEXP 
+
+	ID	shift 33
+	NUM	shift 32
+	PLUS	shift 31
+	LPAREN	shift 30
+	NEG	shift 29
+	MINUS	shift 28
+
+	IEXP	goto 92
+	IT	goto 26
+	IFAC	goto 25
+	NUME	goto 24
+
+	.	error
+
+
+state 67:
+
+	COMP : IEXP LT . IEXP 
+
+	ID	shift 33
+	NUM	shift 32
+	PLUS	shift 31
+	LPAREN	shift 30
+	NEG	shift 29
+	MINUS	shift 28
+
+	IEXP	goto 93
+	IT	goto 26
+	IFAC	goto 25
+	NUME	goto 24
+
+	.	error
+
+
+state 68:
+
+	COMP : IEXP GT . IEXP 
+
+	ID	shift 33
+	NUM	shift 32
+	PLUS	shift 31
+	LPAREN	shift 30
+	NEG	shift 29
+	MINUS	shift 28
+
+	IEXP	goto 94
+	IT	goto 26
+	IFAC	goto 25
+	NUME	goto 24
+
+	.	error
+
+
+state 69:
+
+	BF : NOT BF .  (reduce by rule 41)
+
+
+
+	.	reduce by rule 41
+
+
+state 70:
+
+	BEXP : BEXP . OR BT 
+	BF : LPAREN BEXP . RPAREN 
+
+	RPAREN	shift 95
+	OR	shift 62
+
+
+	.	error
+
+
+state 71:
+
+	IEXP : IEXP . PLUS IT 
+	IEXP : IEXP . MINUS IT 
+	IFAC : LPAREN IEXP . RPAREN 
+	COMP : IEXP . LT IEXP 
+	COMP : IEXP . LEQ IEXP 
+	COMP : IEXP . GT IEXP 
+	COMP : IEXP . GEQ IEXP 
+	COMP : IEXP . NEQ IEXP 
+
+	PLUS	shift 56
+	RPAREN	shift 86
+	GT	shift 68
+	LT	shift 67
+	GEQ	shift 66
+	LEQ	shift 65
+	NEQ	shift 64
+	MINUS	shift 55
+
+
+	.	error
+
+
+state 72:
+
+	C : IF BEXP THEN . CS ELSE CS ENDIF 
+
+	LCPAREN	shift 10
+
+	CS	goto 96
+
+	.	error
+
+
+state 73:
+
+	EXP : BEXP .  (reduce by rule 20)
+	BEXP : BEXP . OR BT 
+
+	OR	shift 62
+
+
+	.	reduce by rule 20
+
+
+state 74:
+
+	EXP : IEXP .  (reduce by rule 19)
+	IEXP : IEXP . PLUS IT 
+	IEXP : IEXP . MINUS IT 
+	COMP : IEXP . LT IEXP 
+	COMP : IEXP . LEQ IEXP 
+	COMP : IEXP . GT IEXP 
+	COMP : IEXP . GEQ IEXP 
+	COMP : IEXP . NEQ IEXP 
+
+	PLUS	shift 56
+	GT	shift 68
+	LT	shift 67
+	GEQ	shift 66
+	LEQ	shift 65
+	NEQ	shift 64
+	MINUS	shift 55
+
+
+	.	reduce by rule 19
+
+
+state 75:
+
+	C : ID EQ EXP .  (reduce by rule 14)
+
+
+
+	.	reduce by rule 14
+
+
+state 76:
+
+	D : VAR VL TYPE BOOL EOC .  (reduce by rule 6)
+
+
+
+	.	reduce by rule 6
+
+
+state 77:
+
+	D : VAR VL TYPE INT EOC .  (reduce by rule 5)
+
+
+
+	.	reduce by rule 5
+
+
+state 78:
+
+	VLE : COM ID VLE .  (reduce by rule 8)
+
+
+
+	.	reduce by rule 8
+
+
+state 79:
+
+	CO : C EOC . CO 
+
+	ID	shift 19
+	IF	shift 17
+	WHILE	shift 16
+	READ	shift 15
+	WRITE	shift 14
+
+	CO	goto 97
+	C	goto 50
+
+	.	reduce by rule 13
+
+
+state 80:
+
+	CS : LCPAREN C EOC CO RCPAREN .  (reduce by rule 11)
+
+
+
+	.	reduce by rule 11
+
+
+state 81:
+
+	IT : IT DIV IFAC .  (reduce by rule 25)
+
+
+
+	.	reduce by rule 25
+
+
+state 82:
+
+	IT : IT MOD IFAC .  (reduce by rule 26)
+
+
+
+	.	reduce by rule 26
+
+
+state 83:
+
+	IT : IT TIMES IFAC .  (reduce by rule 24)
+
+
+
+	.	reduce by rule 24
+
+
+state 84:
+
+	IEXP : IEXP MINUS IT .  (reduce by rule 22)
+	IT : IT . TIMES IFAC 
+	IT : IT . DIV IFAC 
+	IT : IT . MOD IFAC 
+
+	TIMES	shift 54
+	MOD	shift 53
+	DIV	shift 52
+
+
+	.	reduce by rule 22
+
+
+state 85:
+
+	IEXP : IEXP PLUS IT .  (reduce by rule 21)
+	IT : IT . TIMES IFAC 
+	IT : IT . DIV IFAC 
+	IT : IT . MOD IFAC 
+
+	TIMES	shift 54
+	MOD	shift 53
+	DIV	shift 52
+
+
+	.	reduce by rule 21
+
+
+state 86:
+
+	IFAC : LPAREN IEXP RPAREN .  (reduce by rule 30)
+
+
+
+	.	reduce by rule 30
+
+
+state 87:
+
+	BT : BT AND BF .  (reduce by rule 34)
+
+
+
+	.	reduce by rule 34
+
+
+state 88:
+
+	BEXP : BEXP OR BT .  (reduce by rule 32)
+	BT : BT . AND BF 
+
+	AND	shift 61
+
+
+	.	reduce by rule 32
+
+
+state 89:
+
+	C : WHILE BEXP DO CS . ENDWH 
+
+	ENDWH	shift 98
+
+
+	.	error
+
+
+state 90:
+
+	IEXP : IEXP . PLUS IT 
+	IEXP : IEXP . MINUS IT 
+	COMP : IEXP NEQ IEXP .  (reduce by rule 46)
+
+	PLUS	shift 56
+	MINUS	shift 55
+
+
+	.	reduce by rule 46
+
+
+state 91:
+
+	IEXP : IEXP . PLUS IT 
+	IEXP : IEXP . MINUS IT 
+	COMP : IEXP LEQ IEXP .  (reduce by rule 43)
+
+	PLUS	shift 56
+	MINUS	shift 55
+
+
+	.	reduce by rule 43
+
+
+state 92:
+
+	IEXP : IEXP . PLUS IT 
+	IEXP : IEXP . MINUS IT 
+	COMP : IEXP GEQ IEXP .  (reduce by rule 45)
+
+	PLUS	shift 56
+	MINUS	shift 55
+
+
+	.	reduce by rule 45
+
+
+state 93:
+
+	IEXP : IEXP . PLUS IT 
+	IEXP : IEXP . MINUS IT 
+	COMP : IEXP LT IEXP .  (reduce by rule 42)
+
+	PLUS	shift 56
+	MINUS	shift 55
+
+
+	.	reduce by rule 42
+
+
+state 94:
+
+	IEXP : IEXP . PLUS IT 
+	IEXP : IEXP . MINUS IT 
+	COMP : IEXP GT IEXP .  (reduce by rule 44)
+
+	PLUS	shift 56
+	MINUS	shift 55
+
+
+	.	reduce by rule 44
+
+
+state 95:
+
+	BF : LPAREN BEXP RPAREN .  (reduce by rule 40)
+
+
+
+	.	reduce by rule 40
+
+
+state 96:
+
+	C : IF BEXP THEN CS . ELSE CS ENDIF 
+
+	ELSE	shift 99
+
+
+	.	error
+
+
+state 97:
+
+	CO : C EOC CO .  (reduce by rule 12)
+
+
+
+	.	reduce by rule 12
+
+
+state 98:
+
+	C : WHILE BEXP DO CS ENDWH .  (reduce by rule 18)
+
+
+
+	.	reduce by rule 18
+
+
+state 99:
+
+	C : IF BEXP THEN CS ELSE . CS ENDIF 
+
+	LCPAREN	shift 10
+
+	CS	goto 100
+
+	.	error
+
+
+state 100:
+
+	C : IF BEXP THEN CS ELSE CS . ENDIF 
+
+	ENDIF	shift 101
+
+
+	.	error
+
+
+state 101:
+
+	C : IF BEXP THEN CS ELSE CS ENDIF .  (reduce by rule 17)
+
+
+
+	.	reduce by rule 17
+
+
+state 102:
+
+
+	EOF	accept
+
+
+	.	error
+
+121 of 360 action table entries left after compaction
+112 goto table entries
