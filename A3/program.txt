@@ -1,6 +1,1 @@
-program Myprog :: 
-	var a,b : int ; { 
-	 while (a%b>0 && a%b < b )
-	  do { a := b*(a/b)+(a%b) ;} 
-	  endwh; 
-}
+program Myprog :: var a,b : int ; {  while (a%b>0 && a%b < b ) do { a := b*(a/b)+(a%b) ;}   endwh; }
